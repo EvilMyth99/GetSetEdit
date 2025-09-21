@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Set Edit - Professional Video Editing Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'slate-750': 'rgb(51 65 85)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bg-clip-text {
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        .text-transparent {
+            color: transparent;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .group:hover .group-hover\:opacity-100 {
+            opacity: 1;
+        }
+
+        /* --- Animation Styles --- */
+        .animated-element {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up {
+            transform: translateY(30px);
+        }
+        .fade-in {
+             transform: scale(0.95);
+        }
+        .fade-left {
+            transform: translateX(-30px);
+        }
+        .fade-right {
+            transform: translateX(30px);
+        }
+        .is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Delay utilities for staggered animations */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+        
+        /* Subtle lift on hover for cards */
+        .card-hover-lift {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .card-hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Portfolio item filtering animation */
+        .portfolio-item {
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .portfolio-item.hidden-item {
+            transform: scale(0.9);
+            opacity: 0;
+            display: none;
+        }
+        
+    </style>
+</head>
+<body class="min-h-screen bg-slate-900 text-white">
+    <header class="fixed top-0 z-50 w-full bg-black/95 backdrop-blur-sm border-b border-gray-800">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="logo.jpg" alt="Get Set Edit Logo" class="w-9 h-9 rounded-lg">
+                    <span class="text-xl font-bold text-white">Get Set Edit</span>
+                </div>
+
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <button onclick="scrollToSection('about')" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium">
+                        About
+                    </button>
+                    <button onclick="scrollToSection('services')" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium">
+                        Services
+                    </button>
+                    <button onclick="scrollToSection('portfolio')" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium">
+                        Portfolio
+                    </button>
+                    <button onclick="scrollToSection('contact')" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium">
+                        Contact
+                    </button>
+                </nav>
+
+                <div class="hidden lg:block">
+                    <button onclick="scrollToSection('contact')" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-transform duration-200 hover:scale-105">
+                        Get Started
+                    </button>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="lg:hidden text-white p-2">
+                    <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="lg:hidden border-t border-gray-800 bg-black hidden">
+                <div class="px-4 py-4 space-y-3">
+                    <button onclick="scrollToSection('about'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors">
+                        About
+                    </button>
+                    <button onclick="scrollToSection('services'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors">
+                        Services
+                    </button>
+                    <button onclick="scrollToSection('portfolio'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors">
+                        Portfolio
+                    </button>
+                    <button onclick="scrollToSection('contact'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-md transition-colors">
+                        Contact
+                    </button>
+                    <div class="pt-2">
+                        <button onclick="scrollToSection('contact'); closeMobileMenu()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold">
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+        <div class="absolute inset-0 bg-black/20">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d101e294-874e-4137-a2e6-a3e59e448867.png" 
+                 alt="Professional video editing workspace"
+                 class="w-full h-full object-cover opacity-30">
+        </div>
+        
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animated-element fade-up">
+                <span class="text-white">Get Set </span>
+                <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Edit</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animated-element fade-up delay-100">
+                We bring stories to life through edits
+            </p>
+            
+            <p class="text-lg text-gray-400 mb-12 max-w-4xl mx-auto animated-element fade-up delay-200">
+                Transform your raw footage into cinematic masterpieces. Professional video editing 
+                services that capture emotions, tell compelling stories, and engage your audience.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animated-element fade-up delay-300">
+                <button onclick="scrollToSection('portfolio')" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-3 text-lg rounded-lg font-semibold transition-transform duration-200 hover:scale-105">
+                    View Our Work
+                </button>
+                <button onclick="scrollToSection('contact')" class="border border-gray-600 text-gray-300 hover:bg-gray-800 px-8 py-3 text-lg rounded-lg transition-transform duration-200 hover:scale-105">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About us -->
+
+    <section id="about" class="py-20 bg-slate-800 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animated-element fade-right">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                        About <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Get Set Edit</span>
+                    </h2>
+                    
+                    <div class="space-y-6 text-gray-300">
+                        <p class="text-lg">
+                            We are passionate storytellers who believe every frame matters. With 
+                            years of experience, we've helped countless creators transform their raw footage into 
+                            compelling visual narratives.
+                        </p>
+                        
+                        <p class="text-lg">
+                            Our team specializes in creating content that not only looks stunning but 
+                            also drives engagement and delivers results.
+                        </p>
+                        
+                        <p class="text-lg">
+                            What sets us apart is our attention to detail, quick turnaround times, and 
+                            commitment to bringing your creative vision to life.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-8 mt-12">
+                        <div class="text-center">
+                            <div class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent" data-count="500">
+                                0+
+                            </div>
+                            <div class="text-gray-400 mt-2">Projects Completed</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent" data-count="50">
+                                0+
+                            </div>
+                            <div class="text-gray-400 mt-2">Happy Clients</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent" data-count="3">
+                                0+
+                            </div>
+                            <div class="text-gray-400 mt-2">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative animated-element fade-left">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d3d99d8f-10a5-443d-914c-ffc50330e6a6.png" 
+                         alt="Professional RED cinema camera"
+                         class="rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- services -->
+
+    <section id="services" class="py-20 bg-slate-900 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animated-element fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Our <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Services</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    From viral social media content to professional corporate videos, we deliver editing services tailored to your specific needs.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 border border-slate-700 hover:bg-slate-750 transition-colors rounded-lg p-6 card-hover-lift animated-element fade-in">
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-red-500 to-red-600 flex items-center justify-center text-2xl mb-4">🎬</div>
+                    <h3 class="text-xl text-white font-semibold mb-3">YouTube Editing</h3>
+                    <p class="text-gray-400 mb-4">Professional editing that boosts retention and subscriber growth.</p>
+                    <ul class="space-y-2">
+                         <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Custom thumbnails</li>
+                         <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Intro/outro creation</li>
+                         <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Color grading & Audio</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 hover:bg-slate-750 transition-colors rounded-lg p-6 card-hover-lift animated-element fade-in delay-100">
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center text-2xl mb-4">⚡</div>
+                    <h3 class="text-xl text-white font-semibold mb-3">Reels & Shorts</h3>
+                    <p class="text-gray-400 mb-4">Viral-ready short-form content for Instagram, TikTok, and YouTube Shorts.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Quick turnaround</li>
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Captions & Music sync</li>
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Mobile optimization</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 hover:bg-slate-750 transition-colors rounded-lg p-6 card-hover-lift animated-element fade-in delay-200">
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-2xl mb-4">📢</div>
+                    <h3 class="text-xl text-white font-semibold mb-3">Promotional Videos</h3>
+                    <p class="text-gray-400 mb-4">High-impact content for product launches, brand campaigns, and marketing.</p>
+                     <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Brand alignment</li>
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Motion graphics</li>
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Call-to-action integration</li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 hover:bg-slate-750 transition-colors rounded-lg p-6 card-hover-lift animated-element fade-in delay-300">
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center text-2xl mb-4">🏢</div>
+                    <h3 class="text-xl text-white font-semibold mb-3">Corporate Editing</h3>
+                    <p class="text-gray-400 mb-4">Polished content including training videos, presentations, and communications.</p>
+                     <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Professional polish</li>
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Brand consistency</li>
+                        <li class="flex items-center text-gray-300"><div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>Quality assurance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio -->
+
+    <section id="portfolio" class="py-20 bg-slate-800 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animated-element fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Our <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Portfolio</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
+                    Explore our recent work and see how we've helped clients achieve their video content goals.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button onclick="filterPortfolio('All')" id="filter-all" class="px-6 py-2 rounded-full transition-all bg-gradient-to-r from-blue-500 to-purple-600 text-white">All</button>
+                    <button onclick="filterPortfolio('YouTube')" id="filter-youtube" class="px-6 py-2 rounded-full transition-all bg-slate-700 text-gray-300 hover:bg-slate-600">YouTube</button>
+                    <button onclick="filterPortfolio('Reels/Shorts')" id="filter-reels" class="px-6 py-2 rounded-full transition-all bg-slate-700 text-gray-300 hover:bg-slate-600">Reels/Shorts</button>
+                    <button onclick="filterPortfolio('Promotional')" id="filter-promotional" class="px-6 py-2 rounded-full transition-all bg-slate-700 text-gray-300 hover:bg-slate-600">Promotional</button>
+                    <button onclick="filterPortfolio('Corporate')" id="filter-corporate" class="px-6 py-2 rounded-full transition-all bg-slate-700 text-gray-300 hover:bg-slate-600">Corporate</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                <div class="portfolio-item card-hover-lift bg-slate-900 border border-slate-700 overflow-hidden hover:border-blue-500 transition-colors group rounded-lg animated-element fade-in" data-category="Promotional">
+                    <div class="relative"><img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7903c3be-53e7-4481-a883-4aa6c9f3c6f3.png" alt="Tech Startup Promo" class="w-full h-48 object-cover"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="m7 4 10 6L7 16V4Z"/></svg></div><div class="absolute top-2 left-2"><span class="px-2 py-1 rounded text-xs text-white bg-purple-600">Promotional</span></div></div>
+                    <div class="p-6"><h3 class="text-xl font-semibold text-white mb-2">Tech Startup Promo</h3><p class="text-gray-400">Dynamic video for AI startup launch</p></div>
+                </div>
+                <div class="portfolio-item card-hover-lift bg-slate-900 border border-slate-700 overflow-hidden hover:border-blue-500 transition-colors group rounded-lg animated-element fade-in delay-100" data-category="Corporate">
+                    <div class="relative"><img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/81bb97bc-f130-4567-9fd4-633b1244386c.png" alt="Corporate Training Series" class="w-full h-48 object-cover"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="m7 4 10 6L7 16V4Z"/></svg></div><div class="absolute top-2 left-2"><span class="px-2 py-1 rounded text-xs text-white bg-green-600">Corporate</span></div></div>
+                    <div class="p-6"><h3 class="text-xl font-semibold text-white mb-2">Corporate Training Series</h3><p class="text-gray-400">Training modules for Fortune 500 company</p></div>
+                </div>
+                <div class="portfolio-item card-hover-lift bg-slate-900 border border-slate-700 overflow-hidden hover:border-blue-500 transition-colors group rounded-lg animated-element fade-in delay-200" data-category="Reels/Shorts">
+                     <div class="relative"><img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/481e85b5-58ed-4e1d-a486-2a0b106b5194.png" alt="Viral Recipe Shorts" class="w-full h-48 object-cover"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="m7 4 10 6L7 16V4Z"/></svg></div><div class="absolute top-2 left-2"><span class="px-2 py-1 rounded text-xs text-white bg-pink-600">Reels/Shorts</span></div></div>
+                    <div class="p-6"><h3 class="text-xl font-semibold text-white mb-2">Viral Recipe Shorts</h3><p class="text-gray-400">Quick cooking videos optimized for social</p></div>
+                </div>
+                <div class="portfolio-item card-hover-lift bg-slate-900 border border-slate-700 overflow-hidden hover:border-blue-500 transition-colors group rounded-lg animated-element fade-in" data-category="YouTube">
+                     <div class="relative"><img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fb8708d7-f380-463f-a894-de3ea0cc7789.png" alt="Gaming Tutorial Series" class="w-full h-48 object-cover"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="m7 4 10 6L7 16V4Z"/></svg></div><div class="absolute top-2 left-2"><span class="px-2 py-1 rounded text-xs text-white bg-blue-600">YouTube</span></div></div>
+                    <div class="p-6"><h3 class="text-xl font-semibold text-white mb-2">Gaming Tutorial Series</h3><p class="text-gray-400">Educational content for gaming channel</p></div>
+                </div>
+                <div class="portfolio-item card-hover-lift bg-slate-900 border border-slate-700 overflow-hidden hover:border-blue-500 transition-colors group rounded-lg animated-element fade-in delay-100" data-category="Promotional">
+                     <div class="relative"><img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b712465f-8d33-4862-8077-d0d55e3d14c0.png" alt="Fashion Brand Campaign" class="w-full h-48 object-cover"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="m7 4 10 6L7 16V4Z"/></svg></div><div class="absolute top-2 left-2"><span class="px-2 py-1 rounded text-xs text-white bg-purple-600">Promotional</span></div></div>
+                    <div class="p-6"><h3 class="text-xl font-semibold text-white mb-2">Fashion Brand Campaign</h3><p class="text-gray-400">Trendy promo content for fashion startup</p></div>
+                </div>
+                <div class="portfolio-item card-hover-lift bg-slate-900 border border-slate-700 overflow-hidden hover:border-blue-500 transition-colors group rounded-lg animated-element fade-in delay-200" data-category="Reels/Shorts">
+                     <div class="relative"><img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/09a85051-4491-4e22-90fb-ece5c658fd4c.png" alt="Product Demo Reel" class="w-full h-48 object-cover"><div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="m7 4 10 6L7 16V4Z"/></svg></div><div class="absolute top-2 left-2"><span class="px-2 py-1 rounded text-xs text-white bg-pink-600">Reels/Shorts</span></div></div>
+                    <div class="p-6"><h3 class="text-xl font-semibold text-white mb-2">Product Demo Reel</h3><p class="text-gray-400">Quick product showcase for social media</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gradient-to-r from-blue-900 to-purple-900 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-3xl mx-auto animated-element fade-in">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-8">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="m7 4 10 6L7 16V4Z"/></svg>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Go Viral?</h2>
+                <p class="text-xl text-gray-200 mb-8">
+                    Join hundreds of creators who trust Get Set Edit to transform their content into engaging stories that drive results.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="scrollToSection('contact')" class="bg-white text-slate-900 hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-lg transition-transform duration-200 hover:scale-105">Start Your Project</button>
+                    <button class="border border-white text-white hover:bg-white hover:text-slate-900 px-8 py-3 text-lg rounded-lg transition-transform duration-200 hover:scale-105">View Pricing</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+
+    <section id="contact" class="py-20 bg-slate-800 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animated-element fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Ready to Transform Your <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Content?</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">Let's bring your vision to life. Get in touch today for a free consultation.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="bg-slate-900 border border-slate-700 rounded-lg animated-element fade-right">
+                    <div class="p-6 border-b border-slate-700"><h3 class="text-xl text-white flex items-center font-semibold"><div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12,5 19,12 12,19"></polyline></svg></div>Start Your Project</h3></div>
+                    <div class="p-6 space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label class="block text-sm font-medium text-gray-300 mb-2">Name</label><input type="text" placeholder="Your name" class="w-full px-3 py-2 bg-slate-800 border border-slate-600 text-white rounded-lg focus:outline-none focus:border-blue-500"></div>
+                            <div><label class="block text-sm font-medium text-gray-300 mb-2">Email</label><input type="email" placeholder="your@email.com" class="w-full px-3 py-2 bg-slate-800 border border-slate-600 text-white rounded-lg focus:outline-none focus:border-blue-500"></div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Project Type</label>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="px-3 py-1 bg-slate-800 border border-slate-600 rounded-full text-sm text-gray-300 hover:bg-slate-700 transition-colors">YouTube</button>
+                                <button class="px-3 py-1 bg-slate-800 border border-slate-600 rounded-full text-sm text-gray-300 hover:bg-slate-700 transition-colors">Reels/Shorts</button>
+                                <button class="px-3 py-1 bg-slate-800 border border-slate-600 rounded-full text-sm text-gray-300 hover:bg-slate-700 transition-colors">Promotional</button>
+                                <button class="px-3 py-1 bg-slate-800 border border-slate-600 rounded-full text-sm text-gray-300 hover:bg-slate-700 transition-colors">Corporate</button>
+                            </div>
+                        </div>
+                        <div><label class="block text-sm font-medium text-gray-300 mb-2">Project Details</label><textarea placeholder="Tell us about your project..." class="w-full px-3 py-2 bg-slate-800 border border-slate-600 text-white h-32 rounded-lg focus:outline-none focus:border-blue-500 resize-none"></textarea></div>
+                        <button class="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 rounded-lg font-semibold transition-transform duration-200 hover:scale-105 flex items-center justify-center">Send Message<svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12,5 19,12 12,19"></polyline></svg></button>
+                    </div>
+                </div>
+
+                <div class="space-y-8 animated-element fade-left">
+                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-6"><h3 class="text-xl font-semibold text-white mb-6">Get In Touch</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center"><div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4"><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div><div><div class="font-medium text-white">Email</div><div class="text-gray-400">hello@getsetedit.com</div></div></div>
+                            <div class="flex items-center"><div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center mr-4"><span class="text-white font-bold">W</span></div><div><div class="font-medium text-white">WhatsApp</div><div class="text-gray-400">+1 (555) 123-4567</div></div></div>
+                            <div class="flex items-center"><div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-4"><svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12,6 12,12 16,14"></polyline></svg></div><div><div class="font-medium text-white">Response Time</div><div class="text-gray-400">Within 2 hours</div></div></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-6"><h3 class="text-xl font-semibold text-white mb-6">Our Process</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start"><div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1 shrink-0"><span class="text-white font-bold text-sm">1</span></div><div><div class="font-medium text-white">Consultation</div><div class="text-gray-400 text-sm">We discuss your vision and requirements</div></div></div>
+                            <div class="flex items-start"><div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mr-4 mt-1 shrink-0"><span class="text-white font-bold text-sm">2</span></div><div><div class="font-medium text-white">Editing</div><div class="text-gray-400 text-sm">Professional editing with regular updates</div></div></div>
+                            <div class="flex items-start"><div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-4 mt-1 shrink-0"><span class="text-white font-bold text-sm">3</span></div><div><div class="font-medium text-white">Delivery</div><div class="text-gray-400 text-sm">Final video delivered in your format</div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+    <footer class="bg-slate-900 border-t border-slate-800 py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4"><div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="m7 4 10 6L7 16V4Z"/></svg></div><span class="text-xl font-bold text-white">Get Set Edit</span></div>
+                    <p class="text-gray-400 mb-6 max-w-md">Bringing stories to life through professional video editing.</p>
+                    <div class="flex space-x-4">
+                        <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors cursor-pointer">
+                            <span class="text-white">YT</span>
+                        </div>
+                        <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors cursor-pointer">
+                            <span class="text-white">IG</span>
+                        </div>
+                        <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-slate-700 transition-colors cursor-pointer">
+                            <span class="text-white">TW</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#services" class="hover:text-white transition-colors">YouTube Editing</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Reels & Shorts</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Promotional Videos</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Corporate Editing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#portfolio" class="hover:text-white transition-colors">Portfolio</a></li>
+                    </ul>
+                </div>
+            </div>
+             <div class="border-t border-slate-800 pt-8 text-center text-gray-500">
+                <p>&copy; 2025 Get Set Edit. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Mobile Menu Functionality ---
+        let mobileMenuOpen = false;
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            mobileMenuOpen = !mobileMenuOpen;
+            if (mobileMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+        }
+        function closeMobileMenu() {
+            if (mobileMenuOpen) {
+                toggleMobileMenu();
+            }
+        }
+
+        // --- Smooth Scrolling ---
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // --- Animated Portfolio Filtering ---
+        function filterPortfolio(category) {
+            const buttons = document.querySelectorAll('#portfolio button[id^="filter-"]');
+            buttons.forEach(button => {
+                const buttonCategory = button.id.split('-')[1].charAt(0).toUpperCase() + button.id.split('-')[1].slice(1);
+                 if (buttonCategory === category || (buttonCategory === 'All' && category === 'All')) {
+                    button.className = "px-6 py-2 rounded-full transition-all bg-gradient-to-r from-blue-500 to-purple-600 text-white";
+                } else {
+                    button.className = "px-6 py-2 rounded-full transition-all bg-slate-700 text-gray-300 hover:bg-slate-600";
+                }
+            });
+
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            portfolioItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                const shouldBeVisible = category === 'All' || itemCategory === category;
+                
+                if (shouldBeVisible) {
+                    // Make it visible
+                    item.classList.remove('hidden-item');
+                    // We need a tiny timeout to allow the 'display' property to apply before starting the transition
+                    setTimeout(() => {
+                        item.style.display = 'block';
+                    }, 50);
+                } else {
+                    // Hide it
+                    item.classList.add('hidden-item');
+                    // Wait for the transition to finish before setting display to none
+                     setTimeout(() => {
+                         if (!item.classList.contains('hidden-item')) return;
+                         item.style.display = 'none';
+                    }, 400); // Corresponds to the transition duration
+                }
+            });
+        }
+        
+        // --- Scroll-Triggered Animations and Number Counter ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animated-element');
+            const counterElements = document.querySelectorAll('[data-count]');
+
+            // Function to handle the number counting animation
+            const animateCounter = (el) => {
+                const target = +el.getAttribute('data-count');
+                el.innerText = '0+';
+                let current = 0;
+                
+                const updateCounter = () => {
+                    const increment = Math.ceil(target / 100);
+                    current += increment;
+                    
+                    if (current < target) {
+                        el.innerText = current + '+';
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        el.innerText = target + '+';
+                    }
+                };
+                requestAnimationFrame(updateCounter);
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+
+                        // Check if the element is a counter and animate it
+                        if (entry.target.hasAttribute('data-count')) {
+                             animateCounter(entry.target);
+                             // Unobserve after animating to prevent re-counting
+                             observer.unobserve(entry.target);
+                        } else if (entry.target.closest('.hero-section') === null) {
+                            // Unobserve regular elements after they appear (but not hero elements)
+                            observer.unobserve(entry.target);
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            // Observe all animated elements and counters
+            animatedElements.forEach(el => observer.observe(el));
+            counterElements.forEach(el => observer.observe(el));
+            
+            // Initial filter call
+            filterPortfolio('All');
+        });
+    </script>
+</body>
+</html>
