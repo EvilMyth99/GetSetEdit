@@ -132,3 +132,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Initialize Portfolio Filter ---
     filterPortfolio('All');
 });
+
+
+
+
+// Select all thumbnail overlays
+const thumbnails = document.querySelectorAll('.video-thumb');
+
+thumbnails.forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    // Find the corresponding iframe
+    const iframe = thumb.parentElement.querySelector('.portfolio-video');
+
+    // Append autoplay param (works for Google Drive preview)
+    if (!iframe.src.includes('autoplay=1')) {
+      iframe.src += iframe.src.includes('?') ? '&autoplay=1' : '?autoplay=1';
+    }
+
+    // Hide the thumbnail overlay
+    thumb.style.display = 'none';
+  });
+});
