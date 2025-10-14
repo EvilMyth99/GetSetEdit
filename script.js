@@ -64,13 +64,13 @@ function filterPortfolio(category) {
     });
 }
 
-// --- Pricing Modal ---
+/* --- Pricing Modal ---
 function openPricing() {
     const modal = document.getElementById('pricingModal');
     modal.classList.remove('hidden');
     modal.classList.add('show'); // 'show' class triggers the animation
 }
-
+*/
 function closePricing() {
     const modal = document.getElementById('pricingModal');
     modal.classList.remove('show');
