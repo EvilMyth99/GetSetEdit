@@ -1,0 +1,709 @@
+/* --- Custom Base Styles --- */
+.brand-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.bg-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.text-transparent {
+    color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+}
+
+/* --- Scroll-Triggered Animation Styles --- */
+.animated-element {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-up {
+    transform: translateY(30px);
+}
+
+.fade-in {
+    transform: scale(0.95);
+}
+
+.fade-left {
+    transform: translateX(-30px);
+}
+
+.fade-right {
+    transform: translateX(30px);
+}
+
+.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* --- Delay Utilities for Staggered Animations --- */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* --- Subtle Lift on Hover for Cards --- */
+.card-hover-lift {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.card-hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* --- Portfolio Item Filtering Animation --- */
+.portfolio-item {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.portfolio-item.hidden-item {
+    transform: scale(0.9);
+    opacity: 0;
+    display: none;
+}
+
+/* --- Pricing Modal Animation Keyframes & Styles --- */
+@keyframes fadeInBg {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(60px) scale(0.95);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- Animate modal background --- */
+#pricingModal.show {
+    animation: fadeInBg 0.4s ease forwards;
+}
+
+/* --- Animate pricing box --- */
+#pricingModal.show .pricing-box {
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+/* --- Hover effects on pricing cards --- */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(168, 85, 247, 0.4); /* soft purple glow */
+}
+
+
+
+/* ============================= */
+/* SOCIAL REACTIONS – FINAL */
+/* ============================= */
+
+/* Phone lift */
+.social-phone {
+    transition: transform 0.4s ease;
+}
+.social-phone:hover {
+    transform: translateY(-6px) scale(1.02);
+}
+
+/* Base reaction */
+.reaction {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.2rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Delays */
+.delay-1 { animation-delay: 0s; }
+.delay-2 { animation-delay: 0.5s; }
+.delay-3 { animation-delay: 1s; }
+.delay-4 { animation-delay: 1.5s; }
+.delay-5 { animation-delay: 2s; }
+
+/* ❤️ Hearts – float right */
+.heart {
+    color: #ec4899;
+    animation: heartFloat 6s infinite ease-in-out;
+}
+
+@keyframes heartFloat {
+    0%   { transform: translate(-50%, 0) scale(0.6); opacity: 0; }
+    20%  { opacity: 1; }
+    50%  { transform: translate(calc(-50% + 40px), -90px) scale(1.1); }
+    80%  { transform: translate(calc(-50% + 70px), -170px) scale(0.9); opacity: 0.8; }
+    100% { transform: translate(calc(-50% + 90px), -260px) scale(0.6); opacity: 0; }
+}
+
+/* 💬 Comments – drift left slower */
+.comment {
+    color: #3b82f6;
+    animation: commentFloat 7s infinite ease-in-out;
+}
+
+@keyframes commentFloat {
+    0%   { transform: translate(-50%, 0) scale(0.7); opacity: 0; }
+    20%  { opacity: 1; }
+    50%  { transform: translate(calc(-50% - 40px), -80px) scale(1); }
+    80%  { transform: translate(calc(-50% - 70px), -160px) scale(0.9); opacity: 0.9; }
+    100% { transform: translate(calc(-50% - 100px), -240px) scale(0.6); opacity: 0; }
+}
+
+/* 👁 Views – straight up */
+.view {
+    color: #22c55e;
+    animation: viewFloat 5.5s infinite ease-in-out;
+}
+
+@keyframes viewFloat {
+    0%   { transform: translate(-50%, 0) scale(0.6); opacity: 0; }
+    20%  { opacity: 1; }
+    60%  { transform: translate(-50%, -160px) scale(1); }
+    100% { transform: translate(-50%, -280px) scale(0.7); opacity: 0; }
+}
+
+/* 📈 Growth – faster, sharper */
+.growth {
+    color: #a855f7;
+    font-size: 2.6rem;
+    animation: growthFloat 5s infinite cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes growthFloat {
+    0%   { transform: translate(-50%, 0) scale(0.7); opacity: 0; }
+    25%  { opacity: 1; }
+    60%  { transform: translate(calc(-50% + 20px), -140px) scale(1.2); }
+    100% { transform: translate(calc(-50% + 40px), -300px) scale(0.8); opacity: 0; }
+}
+
+/* Slow Glow Pulse */
+@keyframes pulseSlow {
+    0%, 100% { transform: scale(1); opacity: 0.2; }
+    50% { transform: scale(1.05); opacity: 0.3; }
+}
+.animate-pulse-slow {
+    animation: pulseSlow 6s infinite ease-in-out;
+}
+
+/* Floating Card Motion */
+.floating-card {
+    animation: floatCard 6s infinite ease-in-out;
+}
+@keyframes floatCard {
+    0%,100% { transform: rotate(6deg) translateY(0px); }
+    50% { transform: rotate(6deg) translateY(-12px); }
+}
+
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.9); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
+}
+
+
+
+/* ============================= */
+/* DYNAMIC SERVICE CARDS */
+/* ============================= */
+
+.gradient-text {
+  background: linear-gradient(to right, #60a5fa, #a855f7);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.service-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  height: 320px;
+  padding: 40px;
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.card-content {
+  position: relative;
+  z-index: 5;
+  max-width: 320px;
+}
+
+.card-content h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.card-content p {
+  color: rgba(255,255,255,0.85);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+  transition: background 0.4s ease;
+}
+
+.service-card:hover .card-overlay {
+  background: rgba(0,0,0,0.25);
+}
+
+/* ============================= */
+/* INSTAGRAM */
+/* ============================= */
+
+.ig-card {
+  background: linear-gradient(135deg, #ec4899, #9333ea, #6366f1);
+}
+
+.ig-reaction {
+  position: absolute;
+  font-size: 22px;
+  opacity: 0.8;
+  animation: igFloat 6s infinite ease-in-out;
+}
+
+.r1 { left: 20%; bottom: 20%; animation-delay: 0s; }
+.r2 { left: 60%; bottom: 30%; animation-delay: 1.5s; }
+.r3 { left: 40%; bottom: 15%; animation-delay: 3s; }
+.r4 { left: 70%; bottom: 25%; animation-delay: 4.5s; }
+
+@keyframes igFloat {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-120px) scale(1.1); opacity: 0; }
+}
+
+/* ============================= */
+/* YOUTUBE */
+/* ============================= */
+
+.yt-card {
+  background: linear-gradient(135deg, #1f1f1f, #7f1d1d);
+}
+
+.yt-play {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%,100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.yt-progress {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  width: 70%;
+  height: 6px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.yt-bar {
+  width: 40%;
+  height: 100%;
+  background: #ef4444;
+  transition: width 1.5s ease;
+}
+
+.yt-card:hover .yt-bar {
+  width: 90%;
+}
+
+/* ============================= */
+/* REELS & SHORTS – TIMELINE */
+/* ============================= */
+
+.reels-card-v2 {
+  background: linear-gradient(135deg, #2563eb, #9333ea);
+}
+
+.timeline {
+  position: absolute;
+  bottom: 60%;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  gap: 10px;
+}
+
+.timeline span {
+  flex: 1;
+  height: 6px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 4px;
+  transform-origin: left;
+  animation: timelineIdle 2.5s infinite ease-in-out;
+}
+
+.timeline span:nth-child(2) { animation-delay: 0.2s; }
+.timeline span:nth-child(3) { animation-delay: 0.4s; }
+.timeline span:nth-child(4) { animation-delay: 0.6s; }
+.timeline span:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes timelineIdle {
+  0% { transform: scaleX(0.4); opacity: 0.4; }
+  50% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(0.6); opacity: 0.6; }
+}
+
+.reels-card-v2:hover .timeline span {
+  animation-duration: 0.8s;
+  background: white;
+}
+
+/* ============================= */
+/* CONTENT STRATEGY – SYSTEM */
+/* ============================= */
+
+.strategy-card-v2 {
+  background: linear-gradient(135deg, #0f172a, #064e3b);
+}
+
+.system-block {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  transition: all 0.6s ease;
+}
+
+.b1 { top: 25%; left: 20%; }
+.b2 { top: 55%; left: 25%; }
+.b3 { top: 30%; left: 65%; }
+.b4 { top: 60%; left: 60%; }
+
+.strategy-card-v2:hover .b1 {
+  top: 40%; left: 35%;
+}
+
+.strategy-card-v2:hover .b2 {
+  top: 40%; left: 45%;
+}
+
+.strategy-card-v2:hover .b3 {
+  top: 40%; left: 55%;
+}
+
+.strategy-card-v2:hover .b4 {
+  top: 40%; left: 65%;
+}
+
+.strategy-card-v2:hover .system-block {
+  background: #22c55e;
+}
+
+
+
+/* ============================= */
+/* SIMPLE HOVER CARDS */
+/* ============================= */
+
+.simple-card {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 20px;
+  padding: 40px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.simple-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.simple-card p {
+  color: #cbd5f5;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.simple-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+
+/* Contact Page Animations */
+
+.fade-up-slow {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: scaleIn 0.7s ease forwards;
+}
+
+@keyframes scaleIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { transform: scale(1); opacity: 0.25; }
+  50% { transform: scale(1.05); opacity: 0.35; }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 8s infinite ease-in-out;
+}
+
+
+
+
+/*** ============================= */
+/*Portfolio Page Styles */
+
+
+
+.gradient-text {
+  background: linear-gradient(to right, #60a5fa, #a855f7);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* GRID */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.portfolio-card {
+  position: relative;
+  height: 420px;
+  border-radius: 28px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+}
+
+.portfolio-card img,
+.portfolio-card iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 40px 90px rgba(0,0,0,0.6);
+}
+
+/* OVERLAY */
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.4), transparent);
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+
+.portfolio-card:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.platform-tag {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+  width: fit-content;
+  margin-bottom: 14px;
+}
+
+/* FILTER */
+.pf-tab {
+  font-size: 18px;
+  color: #94a3b8;
+  position: relative;
+  transition: color .3s ease;
+}
+
+.pf-tab.active,
+.pf-tab:hover {
+  color: white;
+}
+
+.pf-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #3b82f6, #9333ea);
+}
+
+/* FLOAT */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.float-slow { animation: float 6s ease-in-out infinite; }
+.float-fast { animation: float 4s ease-in-out infinite; }
+
+/* AMBIENT */
+.ambient-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.ambient-blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  filter: blur(120px);
+  opacity: .15;
+  border-radius: 50%;
+}
+
+.blob-1 {
+  background: radial-gradient(circle, #3b82f6, transparent 70%);
+  top: -200px;
+  left: -150px;
+}
+
+.blob-2 {
+  background: radial-gradient(circle, #9333ea, transparent 70%);
+  bottom: -200px;
+  right: -150px;
+}
+
+.ambient-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.instagram .portfolio-overlay::after {
+  content: "↗ Opens on Instagram";
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 6px;
+}
+
+/* Fix Instagram embed width */
+.instagram-media {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* GRID FIX */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 48px;
+}
+
+/* Remove fixed height (Instagram controls height now) */
+.portfolio-card {
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+/* Instagram width override */
+.instagram-media {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Prevent Instagram embeds from resizing */
+.portfolio-card {
+  max-width: 100%;
+}
+
+.instagram-media {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Filtering without breaking embeds */
+.portfolio-card.hidden {
+  display: none;
+}
+
+.portfolio-card.visible {
+  display: block;
+}
